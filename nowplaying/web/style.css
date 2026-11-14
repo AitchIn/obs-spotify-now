@@ -1,6 +1,10 @@
-:root { --vsize: 160px; --rect: 110px; }
+:root {
+  --vsize: 160px;
+  --rect: 110px;
+}
 
-html, body {
+html,
+body {
   margin: 0;
   background: transparent;
   overflow: hidden;
@@ -18,21 +22,33 @@ html, body {
   background: var(--bg);
   color: var(--text);
   border-radius: var(--radius);
-  transition: opacity .5s, transform .5s;
+  transition:
+    opacity 0.5s,
+    transform 0.5s;
 }
-#card.hidden { opacity: 0; transform: translateY(12px); }
-#card.swap { opacity: 0; transform: translateX(-20px); }
+#card.hidden {
+  opacity: 0;
+  transform: translateY(12px);
+}
+#card.swap {
+  opacity: 0;
+  transform: translateX(-20px);
+}
 
 #cover {
   display: block;
   width: var(--cover);
   height: var(--cover);
-  border-radius: calc(var(--radius) * .6);
+  border-radius: calc(var(--radius) * 0.6);
   object-fit: cover;
   flex: none;
 }
-#disc { display: contents; }
-#cover.off { display: none; }
+#disc {
+  display: contents;
+}
+#cover.off {
+  display: none;
+}
 
 #info {
   flex: 1;
@@ -43,23 +59,45 @@ html, body {
   gap: 2px;
 }
 
-.line { overflow: hidden; white-space: nowrap; }
-.line span { display: inline-block; }
+.line {
+  overflow: hidden;
+  white-space: nowrap;
+}
+.line span {
+  display: inline-block;
+}
 
-#title { font-size: var(--size); font-weight: 600; }
-#artist { font-size: calc(var(--size) * .75); color: var(--accent); }
-#album { font-size: calc(var(--size) * .55); opacity: .7; }
-#album.off { display: none; }
+#title {
+  font-size: var(--size);
+  font-weight: 600;
+}
+#artist {
+  font-size: calc(var(--size) * 0.75);
+  color: var(--accent);
+}
+#album {
+  font-size: calc(var(--size) * 0.55);
+  opacity: 0.7;
+}
+#album.off {
+  display: none;
+}
 
 #bar {
   height: var(--barh);
   margin-top: 8px;
-  background: rgba(255, 255, 255, .2);
+  background: rgba(255, 255, 255, 0.2);
   border-radius: 99px;
   overflow: hidden;
 }
-#bar.off { display: none; }
-#fill { height: 100%; width: 0; background: var(--accent); }
+#bar.off {
+  display: none;
+}
+#fill {
+  height: 100%;
+  width: 0;
+  background: var(--accent);
+}
 
 #card.vinyl {
   position: relative;
@@ -75,7 +113,7 @@ html, body {
   content: "";
   position: absolute;
   z-index: 0;
-  left: calc(var(--vsize) * .5);
+  left: calc(var(--vsize) * 0.5);
   right: 0;
   top: 50%;
   height: var(--rect);
@@ -92,7 +130,7 @@ html, body {
   width: var(--vsize);
   height: var(--vsize);
   box-sizing: border-box;
-  border: calc(var(--vsize) * .03) solid var(--bg);
+  border: calc(var(--vsize) * 0.03) solid var(--bg);
   border-radius: 50%;
   overflow: hidden;
 }
@@ -111,13 +149,17 @@ html, body {
   animation: spin var(--spin) linear infinite;
   animation-play-state: paused;
 }
-#card.vinyl.playing #cover { animation-play-state: running; }
-#card.vinyl:not(.spin) #cover { animation: none; }
+#card.vinyl.playing #cover {
+  animation-play-state: running;
+}
+#card.vinyl:not(.spin) #cover {
+  animation: none;
+}
 
 #card.vinyl #info {
   position: relative;
   z-index: 1;
-  margin: 0 20px 0 calc(var(--vsize) * .14);
+  margin: 0 20px 0 calc(var(--vsize) * 0.14);
 }
 
 #card.vinyl.vinyl-style #disc::before {
@@ -128,22 +170,22 @@ html, body {
   border-radius: 50%;
   pointer-events: none;
   background:
-          conic-gradient(
-                  from 35deg,
-                  transparent 0deg,
-                  rgba(255, 255, 255, 0.14) 22deg,
-                  transparent 48deg,
-                  transparent 180deg,
-                  rgba(255, 255, 255, 0.14) 202deg,
-                  transparent 228deg
-          ),
-          repeating-radial-gradient(
-                  circle at center,
-                  rgba(0, 0, 0, 0.35) 0px,
-                  rgba(0, 0, 0, 0.35) 1px,
-                  rgba(255, 255, 255, 0.06) 1px,
-                  rgba(255, 255, 255, 0.06) 12px
-          );
+    conic-gradient(
+      from 35deg,
+      transparent 0deg,
+      rgba(255, 255, 255, 0.14) 22deg,
+      transparent 48deg,
+      transparent 180deg,
+      rgba(255, 255, 255, 0.14) 202deg,
+      transparent 228deg
+    ),
+    repeating-radial-gradient(
+      circle at center,
+      rgba(0, 0, 0, 0.35) 0px,
+      rgba(0, 0, 0, 0.35) 1px,
+      rgba(255, 255, 255, 0.06) 1px,
+      rgba(255, 255, 255, 0.06) 12px
+    );
   box-shadow: inset 0 0 0 calc(var(--vsize) * 0.035) rgba(0, 0, 0, 0.7);
 }
 
@@ -159,10 +201,14 @@ html, body {
   border-radius: 50%;
   background: var(--bg);
   box-shadow:
-          0 0 0 calc(var(--vsize) * 0.015) rgba(255, 255, 255, 0.15),
-          0 0 0 calc(var(--vsize) * 0.03) rgba(15, 15, 15, 0.85),
-          inset 0 1px 2px rgba(0, 0, 0, 0.9);
+    0 0 0 calc(var(--vsize) * 0.015) rgba(255, 255, 255, 0.15),
+    0 0 0 calc(var(--vsize) * 0.03) rgba(15, 15, 15, 0.85),
+    inset 0 1px 2px rgba(0, 0, 0, 0.9);
   pointer-events: none;
 }
 
-@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
