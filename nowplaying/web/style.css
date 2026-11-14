@@ -35,6 +35,7 @@ html, body {
 #cover.off { display: none; }
 
 #info {
+  flex: 1;
   min-width: 0;
   max-width: var(--textw);
   display: flex;
@@ -116,7 +117,6 @@ html, body {
 #card.vinyl #info {
   position: relative;
   z-index: 1;
-  flex: 1;
   margin: 0 20px 0 calc(var(--vsize) * .14);
 }
 
