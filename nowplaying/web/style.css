@@ -12,164 +12,84 @@ body {
   font-family: var(--font), sans-serif;
 }
 
-#card {
+.card {
+  --pad: 10px;
+  --gap: 16px;
+  --rect-left: 0px;
+  --rect-h: 100%;
+  --cover-radius: calc(var(--radius) * 0.6);
+  position: relative;
+  isolation: isolate;
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 10px;
+  gap: var(--gap);
+  padding: var(--pad);
   width: var(--width);
   max-width: 96vw;
   box-sizing: border-box;
-  background: var(--bg);
   color: var(--text);
-  border-radius: var(--radius);
   transition:
     opacity 0.5s,
     transform 0.5s;
 }
-#card.hidden {
-  opacity: 0;
-  transform: translateY(12px);
-}
-#card.swap {
-  opacity: 0;
-  transform: translateX(-20px);
-}
-
-#cover {
-  display: block;
-  width: var(--cover);
-  height: var(--cover);
-  border-radius: calc(var(--radius) * 0.6);
-  object-fit: cover;
-  flex: none;
-}
-#disc {
-  display: contents;
-}
-#cover.off {
-  display: none;
-}
-
-#info {
-  flex: 1;
-  min-width: 0;
-  max-width: var(--textw);
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.line {
-  overflow: hidden;
-  white-space: nowrap;
-}
-.line span {
-  display: inline-block;
-}
-
-#title {
-  font-size: var(--size);
-  font-weight: 600;
-}
-#artist {
-  font-size: calc(var(--size) * 0.75);
-  color: var(--accent);
-}
-#album {
-  font-size: calc(var(--size) * 0.55);
-  opacity: 0.7;
-}
-#album.off {
-  display: none;
-}
-
-#bar {
-  height: var(--barh);
-  margin-top: 8px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 99px;
-  overflow: hidden;
-}
-#bar.off {
-  display: none;
-}
-#fill {
-  height: 100%;
-  width: 0;
-  background: var(--accent);
-}
-
-#card.vinyl {
-  position: relative;
-  width: var(--width);
-  max-width: 96vw;
-  padding: 0;
-  gap: 0;
-  background: none;
-  border-radius: 0;
-}
-
-#card.vinyl::before {
+.card::before {
   content: "";
   position: absolute;
-  z-index: 0;
-  left: calc(var(--vsize) * 0.5);
+  z-index: -1;
+  left: var(--rect-left);
   right: 0;
   top: 50%;
-  height: var(--rect);
+  height: var(--rect-h);
   transform: translateY(-50%);
   background: var(--bg);
   border-radius: var(--radius);
 }
+.card.hidden {
+  opacity: 0;
+  transform: translateY(12px);
+}
+.card.swap {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+.card.vinyl {
+  --pad: 0px;
+  --gap: 0px;
+  --rect-left: calc(var(--vsize) * 0.5);
+  --rect-h: var(--rect);
+  --ring: calc(var(--vsize) * 0.03);
+  --cover: 100%;
+  --cover-radius: 0;
+}
+.card.vinyl-style {
+  --ring: 0px;
+}
 
-#card.vinyl #disc {
+.disc {
+  display: contents;
+}
+.card.vinyl .disc {
   display: block;
   position: relative;
-  z-index: 1;
   flex: none;
   width: var(--vsize);
   height: var(--vsize);
   box-sizing: border-box;
-  border: calc(var(--vsize) * 0.03) solid var(--bg);
+  border: var(--ring) solid var(--bg);
   border-radius: 50%;
   overflow: hidden;
 }
-
-#card.vinyl.vinyl-style #disc {
-  border: none;
-}
-
-#card.vinyl #cover {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  border-radius: 0;
-  animation: spin var(--spin) linear infinite;
-  animation-play-state: paused;
-}
-#card.vinyl.playing #cover {
-  animation-play-state: running;
-}
-#card.vinyl:not(.spin) #cover {
-  animation: none;
-}
-
-#card.vinyl #info {
-  position: relative;
-  z-index: 1;
-  margin: 0 20px 0 calc(var(--vsize) * 0.14);
-}
-
-#card.vinyl.vinyl-style #disc::before {
+.card.vinyl-style .disc::before,
+.card.vinyl-style .disc::after {
   content: "";
   position: absolute;
   inset: 0;
-  z-index: 2;
+  margin: auto;
   border-radius: 50%;
   pointer-events: none;
+}
+.card.vinyl-style .disc::before {
+  z-index: 2;
   background:
     conic-gradient(
       from 35deg,
@@ -189,17 +109,10 @@ body {
     );
   box-shadow: inset 0 0 0 calc(var(--vsize) * 0.035) rgba(0, 0, 0, 0.7);
 }
-
-#card.vinyl.vinyl-style #disc::after {
-  content: "";
-  position: absolute;
+.card.vinyl-style .disc::after {
   z-index: 3;
-  top: 50%;
-  left: 50%;
   width: calc(var(--vsize) * 0.34);
   height: calc(var(--vsize) * 0.34);
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
   background:
     radial-gradient(
       circle closest-side at center,
@@ -213,7 +126,79 @@ body {
   box-shadow:
     0 0 0 calc(var(--vsize) * 0.012) rgba(0, 0, 0, 0.75),
     inset 0 0 calc(var(--vsize) * 0.03) rgba(0, 0, 0, 0.12);
-  pointer-events: none;
+}
+
+.cover {
+  display: block;
+  flex: none;
+  width: var(--cover);
+  height: var(--cover);
+  border-radius: var(--cover-radius);
+  object-fit: cover;
+}
+.cover.off {
+  display: none;
+}
+.card.vinyl .cover {
+  position: absolute;
+  inset: 0;
+}
+.card.vinyl.spin .cover {
+  animation: spin var(--spin) linear infinite paused;
+}
+.card.vinyl.spin.playing .cover {
+  animation-play-state: running;
+}
+
+.info {
+  flex: 1;
+  min-width: 0;
+  max-width: var(--textw);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.card.vinyl .info {
+  margin: 0 20px 0 calc(var(--vsize) * 0.14);
+}
+
+.line {
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: calc(var(--size) * var(--scale, 1));
+}
+.line span {
+  display: inline-block;
+}
+.title {
+  font-weight: 600;
+}
+.artist {
+  --scale: 0.75;
+  color: var(--accent);
+}
+.album {
+  --scale: 0.55;
+  opacity: 0.7;
+}
+.album.off {
+  display: none;
+}
+
+.bar {
+  height: var(--barh);
+  margin-top: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 99px;
+  overflow: hidden;
+}
+.bar.off {
+  display: none;
+}
+.fill {
+  height: 100%;
+  width: 0;
+  background: var(--accent);
 }
 
 @keyframes spin {

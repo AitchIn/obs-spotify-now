@@ -1,4 +1,4 @@
-const $ = (id) => document.getElementById(id);
+const $ = (name) => document.querySelector("." + name);
 
 let last = -1;
 let cfg = {};
@@ -28,10 +28,10 @@ function setText(id, text) {
       const t3 = ((startPause + moveTime + endPause) / total) * 100;
 
       const animName = "marquee_" + id + "_" + Date.now();
-      let styleEl = document.getElementById("kf_" + id);
+      let styleEl = $("kf-" + id);
       if (!styleEl) {
         styleEl = document.createElement("style");
-        styleEl.id = "kf_" + id;
+        styleEl.className = "kf-" + id;
         document.head.appendChild(styleEl);
       }
       styleEl.textContent = `
@@ -92,8 +92,8 @@ async function loadConfig() {
   $("cover").classList.toggle("off", !cfg.show_cover);
   $("album").classList.toggle("off", !cfg.show_album);
   $("bar").classList.toggle("off", !cfg.show_progress);
-  $("card").classList.toggle("vinyl-style", cfg.vinyl_style);
-  $("custom").textContent = cfg.custom_css || "";
+  $("card").classList.toggle("vinyl-style", vinyl && cfg.vinyl_style);
+  $("custom-css").textContent = cfg.custom_css || "";
   fitAll();
 }
 
