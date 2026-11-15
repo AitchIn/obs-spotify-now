@@ -1,5 +1,7 @@
 import obspython as obs
 
+from .state import config
+
 STYLES = [("Classic (rectangle + cover)", "classic"), ("Vinyl (spinning record)", "vinyl")]
 
 FIELDS = [
@@ -30,6 +32,8 @@ FIELDS = [
 ]
 
 INT_KINDS = ("int", "slider", "color")
+VINYL_ONLY = ("vinyl_scale", "vinyl_spin", "vinyl_style", "spin_seconds")
+CLASSIC_ONLY = ("cover_size",)
 
 
 def _hex(v):
@@ -38,6 +42,18 @@ def _hex(v):
 
 def _rgba(v, opacity):
     return "rgba(%d,%d,%d,%.2f)" % (v & 255, (v >> 8) & 255, (v >> 16) & 255, opacity / 100)
+
+
+def _apply_visibility(props, style):
+    for key in VINYL_ONLY:
+        obs.obs_property_set_visible(obs.obs_properties_get(props, key), style == "vinyl")
+    for key in CLASSIC_ONLY:
+        obs.obs_property_set_visible(obs.obs_properties_get(props, key), style == "classic")
+
+
+def _on_style_changed(props, prop, s):
+    _apply_visibility(props, obs.obs_data_get_string(s, "style"))
+    return True
 
 
 def apply_defaults(s):
@@ -69,6 +85,9 @@ def build_properties():
             lst = obs.obs_properties_add_list(p, key, label, obs.OBS_COMBO_TYPE_LIST, obs.OBS_COMBO_FORMAT_STRING)
             for name, value in extra:
                 obs.obs_property_list_add_string(lst, name, value)
+            if key == "style":
+                obs.obs_property_set_modified_callback(lst, _on_style_changed)
+    _apply_visibility(p, config.get("style", "classic"))
     return p
 
 
