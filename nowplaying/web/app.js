@@ -86,6 +86,7 @@ async function loadConfig() {
   r.setProperty("--barh", cfg.bar_height + "px");
   r.setProperty("--spin", cfg.spin_seconds + "s");
   r.setProperty("--width", cfg.container_width + "px");
+  r.setProperty("--blur", cfg.blur_amount + "px");
   const vinyl = cfg.style === "vinyl";
   $("card").classList.toggle("vinyl", vinyl);
   $("card").classList.toggle("spin", cfg.vinyl_spin);
@@ -93,6 +94,7 @@ async function loadConfig() {
   $("album").classList.toggle("off", !cfg.show_album);
   $("bar").classList.toggle("off", !cfg.show_progress);
   $("card").classList.toggle("vinyl-style", vinyl && cfg.vinyl_style);
+  $("card").classList.toggle("blur-bg", cfg.bg_blur);
   $("custom-css").textContent = cfg.custom_css || "";
   fitAll();
 }
@@ -115,7 +117,11 @@ async function tick() {
     setTimeout(() => {
       cur = { title: s.title, artist: s.artist, album: s.album };
       fitAll();
-      if (s.has_cover) $("cover").src = "/cover?id=" + s.id;
+      if (s.has_cover) {
+        const url = "/cover?id=" + s.id;
+        $("cover").src = url;
+        $("backdrop-img").src = url;
+      }
       card.classList.remove("swap");
     }, 400);
   }
