@@ -6,9 +6,13 @@ No Spotify login, no API key, no account linking. Everything runs locally on you
 
 <img width="968" height="373" alt="Preview 1" src="https://github.com/user-attachments/assets/79ba9719-5493-47f9-b2f4-9f0aef29a0bb" />
 
+<img width="931" height="335" alt="image" src="https://github.com/user-attachments/assets/35fef32d-1218-428d-bbdc-a99ecc8f2575" />
+
 <img width="926" height="363" alt="Preview 2" src="https://github.com/user-attachments/assets/090d208f-88e9-4e54-9bf9-a006edf742bb" />
 
-<img width="920" height="338" alt="Preview 3" src="https://github.com/user-attachments/assets/31900ed0-ba5b-4c19-8583-f4ffa88d3225" />
+<img width="917" height="336" alt="image" src="https://github.com/user-attachments/assets/bdb00c19-6dc1-43ea-bce7-6eed4115ebc6" />
+
+<img width="910" height="347" alt="image" src="https://github.com/user-attachments/assets/9da2204d-50fb-43c3-83d9-4a0dd9ff65ee" />
 
 ## Features
 
